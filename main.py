@@ -20,7 +20,14 @@ def timer_func():
             minutes = minutes + 1
             seconds = 0
         seconds = seconds + 1
-        timer.config(text="{} : {}".format(minutes, seconds))
+        if seconds < 10 and minutes < 10:
+            timer.config(text="0{} : 0{}".format(minutes, seconds))
+        elif seconds < 10 and minutes > 9:
+            timer.config(text="{} : 0{}".format(minutes, seconds))
+        elif seconds > 9 and minutes < 10:
+            timer.config(text="0{} : {}".format(minutes, seconds))
+        else:
+            timer.config(text="{} : {}".format(minutes, seconds))
 
 def stop_timer():
     global stop, pressed_start
@@ -35,7 +42,7 @@ window.geometry("%dx%d" % (win_width, win_height))
 window.configure(bg="gray")
 
 
-time = str(minutes) + " : " + str(seconds)
+time = str(minutes) + "0 : 0" + str(seconds)
 timer = tk.Label(text = time,
                  foreground ="white",
                  background = "blue",
